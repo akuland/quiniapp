@@ -29,4 +29,5 @@ jobs:
         env:
           MONGO_URI: ${{ secrets.MONGO_URI }}
           MONGO_DB_NAME: ${{ secrets.MONGO_DB_NAME }}
+          PYTHONPATH: ${{ github.workspace }}
         run: python scripts/actualizar_sorteos.py
