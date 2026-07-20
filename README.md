@@ -26,7 +26,7 @@ aciertos contra los resultados oficiales de cada sorteo.
 
 ```
 quiniapp/
-├── app.py                      # entry point de Streamlit
+├── streamlit_app.py             # entry point de Streamlit
 ├── pages/
 │   ├── 1_mis_boletas.py        # cargar / listar / borrar boletas
 │   └── 2_control.py            # elegir sorteo y ver aciertos
@@ -97,7 +97,7 @@ al vuelo, no se persiste, para evitar desincronización.
 3. Corré la app:
 
    ```
-   streamlit run app.py
+   streamlit run streamlit_app.py
    ```
 
 4. (Opcional) Para traer el último sorteo real y guardarlo en Mongo:
