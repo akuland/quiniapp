@@ -1,0 +1,32 @@
+name: Actualizar sorteos
+
+on:
+  schedule:
+    # Quini 6 sortea domingos y miercoles a las 21:30 hora Argentina (UTC-3,
+    # sin horario de verano). Se corre a las 21:50 ART como pidio el usuario.
+    # Cron en GitHub Actions siempre es UTC.
+    # Lunes 00:50 UTC = domingo 21:50 ART
+    # Jueves 00:50 UTC = miercoles 21:50 ART
+    - cron: "50 0 * * 1,4"
+  workflow_dispatch: {} # permite ejecutarlo a mano desde la pestaña Actions
+
+jobs:
+  actualizar-sorteos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar scraper
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          MONGO_DB_NAME: ${{ secrets.MONGO_DB_NAME }}
+        run: python scripts/actualizar_sorteos.py
